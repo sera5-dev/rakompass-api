@@ -9,9 +9,9 @@ class Schedule extends Model
   protected $fillable = [
     'id',
     'program_id',
-    'hari',
-    'dari',
-    'sampai',
+    'day',
+    'from',
+    'until',
   ];
   protected $hidden = [
     'created_at',

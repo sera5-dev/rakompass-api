@@ -25,11 +25,11 @@ class Crew extends Model
 
   public function social()
   {
-    return $this->belongsToMany(Social::class, 'crew_social');
+    return $this->belongsToMany(Social::class, 'crew_social')->withPivot('username');
   }
 
   public function contacts()
   {
-    return $this->belongsToMany(Contact::class, 'crew_contact');
+    return $this->belongsToMany(Contact::class, 'crew_contact')->withPivot('value');
   }
 }

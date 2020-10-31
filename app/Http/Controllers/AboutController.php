@@ -2,65 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\About as Obj;
 use Illuminate\Http\Request;
-use App\About;
 
 class AboutController extends Controller
 {
   public function __construct()
   {
-    $obj = new About();
+    $obj = new Obj();
     $this->attr = $obj->getFillable();
   }
 
   public function index()
   {
     try {
-      return $this->res('succeed', 'retrieve', 200, About::all());
+      return $this->res('succeed', 'retrieve', Obj::all());
     } catch (\Exception $e) {
-      return $this->res(null, 'failed', 'retrieve', 403);
+      return $this->res('failed', 'retrieve');
     }
   }
 
   public function show($id)
   {
     try {
-      return $this->res('succeed', 'retrieve', 200, About::findOrFail($id));
+      return $this->res('succeed', 'retrieve', Obj::findOrFail($id));
     } catch (\Exception $e) {
-      return $this->res('failed', 'retrieve', 403);
+      return $this->res('failed', 'retrieve');
     }
   }
 
   public function store(Request $request)
   {
     try {
-      $obj = new About();
-      $this->save($request, $obj, $this->attr);
-      return $this->res('succeed', 'store', 200);
+      $this->save($request, new Obj, $this->attr);
+      return $this->res('succeed', 'store');
     } catch (\Exception $e) {
-      return $this->res('failed', 'store', 403);
+      return $this->res('failed', 'store');
     }
   }
 
   public function update(Request $request)
   {
     try {
-      $obj = About::findOrFail($request->input('id'));
-      $this->save($request, $obj, $this->attr);
-      return $this->res('succeed', 'update', 200);
+      $this->save($request, Obj::findOrFail($request->input('id')), $this->attr);
+      return $this->res('succeed', 'update');
     } catch (\Exception $e) {
-      return $this->res('failed', 'update', 403);
+      return $this->res('failed', 'update');
     }
   }
 
   public function destroy(Request $request)
   {
     try {
-      $obj = About::findOrFail($request->input('id'));
-      $obj->delete();
-      return $this->res('succeed', 'delete', 200);
+      Obj::findOrFail($request->input('id'))->delete();
+      return $this->res('succeed', 'delete');
     } catch (\Exception $e) {
-      return $this->res('failed', 'delete', 403);
+      return $this->res('failed', 'delete');
     }
   }
 

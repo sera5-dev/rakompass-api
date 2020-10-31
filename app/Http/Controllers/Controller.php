@@ -15,8 +15,9 @@ class Controller extends BaseController
     $obj->save();
   }
 
-  public function res($status, $method, $code, $data = '')
+  public function res($status, $method, $data = '')
   {
+    $status == 'succeed' ? $code = 200 : $code = 400;
     if ($method == 'retrieve') {
       return response()->json([
         'data' => $data,

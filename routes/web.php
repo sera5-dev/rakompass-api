@@ -18,17 +18,17 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'crews'], function ($router) {
-  $router->get('/',         'CrewController@index');
-  $router->get('/{id}',     'CrewController@show');
-  $router->post('/',        'CrewController@input');
-  $router->delete('/',      'CrewController@destroy');
+  $router->get('/', 'CrewController@index');
+  $router->get('/{id}', 'CrewController@show');
+  $router->post('/', 'CrewController@input');
+  $router->delete('/', 'CrewController@destroy');
 });
 
 $router->group(['prefix' => 'users'], function ($router) {
-  $router->get('/',         'UserController@index');
-  $router->get('/{id}',     'UserController@show');
-  $router->post('/',        'UserController@input');
-  $router->delete('/',      'UserController@destroy');
+  $router->get('/', 'UserController@index');
+  $router->get('/{id}', 'UserController@show');
+  $router->post('/', 'UserController@input');
+  $router->delete('/', 'UserController@destroy');
 });
 
 $router->group(['prefix' => 'programs'], function ($router) {
@@ -44,43 +44,43 @@ $router->group(['prefix' => 'programs'], function ($router) {
 });
 
 $router->group(['prefix' => 'schedules'], function ($router) {
-  $router->get('/',         'ScheduleController@index');
-  $router->get('/{id}',     'ScheduleController@show');
-  $router->post('/',        'ScheduleController@input');
-  $router->delete('/',      'ScheduleController@destroy');
+  $router->get('/', 'ScheduleController@index');
+  $router->get('/{id}', 'ScheduleController@show');
+  $router->post('/', 'ScheduleController@input');
+  $router->delete('/', 'ScheduleController@destroy');
 });
 
 $router->group(['prefix' => 'episodes'], function ($router) {
-  $router->get('/',         'EpisodeController@index');
-  $router->get('/{id}',     'EpisodeController@show');
-  $router->post('/',        'EpisodeController@input');
-  $router->delete('/',      'EpisodeController@destroy');
+  $router->get('/', 'EpisodeController@index');
+  $router->get('/{id}', 'EpisodeController@show');
+  $router->post('/', 'EpisodeController@input');
+  $router->delete('/', 'EpisodeController@destroy');
 });
 
 $router->group(['prefix' => 'contacts'], function ($router) {
-  $router->get('/',         'ContactController@index');
-  $router->get('/{id}',     'ContactController@show');
-  $router->post('/',        'ContactController@input');
-  $router->delete('/',      'ContactController@destroy');
+  $router->get('/', 'ContactController@index');
+  $router->get('/{id}', 'ContactController@show');
+  $router->post('/', 'ContactController@input');
+  $router->delete('/', 'ContactController@destroy');
 });
 
 $router->group(['prefix' => 'socials'], function ($router) {
-  $router->get('/',         'SocialController@index');
-  $router->get('/{id}',     'SocialController@show');
-  $router->post('/',        'SocialController@input');
-  $router->delete('/',      'SocialController@destroy');
+  $router->get('/', 'SocialController@index');
+  $router->get('/{id}', 'SocialController@show');
+  $router->post('/', 'SocialController@input');
+  $router->delete('/', 'SocialController@destroy');
 });
 
 $router->group(['prefix' => 'events'], function ($router) {
-  $router->get('/',         'EventController@index');
-  $router->get('/{id}',     'EventController@show');
-  $router->post('/',        'EventController@input');
-  $router->delete('/',      'EventController@destroy');
+  $router->get('/', 'EventController@index');
+  $router->get('/{id}', 'EventController@show');
+  $router->post('/', 'EventController@input');
+  $router->delete('/', 'EventController@destroy');
 });
 
 $router->group(['prefix' => 'abouts'], function ($router) {
-  $router->get('/',         'AboutController@index');
-  $router->get('/{id}',     'AboutController@show');
-  $router->post('/',        'AboutController@input');
-  $router->delete('/',      'AboutController@destroy');
+  $router->get('/', 'AboutController@index');
+  $router->get('/{id}', 'AboutController@show');
+  $router->post('/', 'AboutController@input');
+  $router->delete('/', 'AboutController@destroy');
 });

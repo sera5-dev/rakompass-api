@@ -18,18 +18,18 @@ class UserController extends Controller
   public function index()
   {
     try {
-      return $this->res('succeed', 'retrieve', 200, User::all());
+      return $this->res('succeed', 'retrieve', User::all());
     } catch (\Exception $e) {
-      return $this->res('failed', 'retrieve', 403);
+      return $this->res('failed', 'retrieve');
     }
   }
 
   public function show($id)
   {
     try {
-      return $this->res('succeed', 'retrieve', 200, User::findOrFail($id));
+      return $this->res('succeed', 'retrieve', User::findOrFail($id));
     } catch (\Exception $e) {
-      return $this->res('failed', 'retrieve', 403);
+      return $this->res('failed', 'retrieve');
     }
   }
 
@@ -38,9 +38,9 @@ class UserController extends Controller
     try {
       $user = new User();
       $this->userSave($request, $user);
-      return $this->res('succeed', 'store', 200);
+      return $this->res('succeed', 'store');
     } catch (\Exception $e) {
-      return $this->res('failed', 'store', 403);
+      return $this->res('failed', 'store');
     }
   }
 
@@ -49,9 +49,9 @@ class UserController extends Controller
     try {
       $user = User::findOrFail($request->input('id'));
       $this->userSave($request, $user);
-      return $this->res('succeed', 'update', 200);
+      return $this->res('succeed', 'update');
     } catch (\Exception $e) {
-      return $this->res('failed', 'update', 403);
+      return $this->res('failed', 'update');
     }
   }
 
@@ -60,9 +60,9 @@ class UserController extends Controller
     try {
       $user = User::findOrFail($request->input('id'));
       $user->delete();
-      return $this->res('succeed', 'delete', 200);
+      return $this->res('succeed', 'delete');
     } catch (\Exception $e) {
-      return $this->res('failed', 'delete', 403);
+      return $this->res('failed', 'delete');
     }
   }
 
