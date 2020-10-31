@@ -6,18 +6,18 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
-		$this->call([
-			CrewSeeder::class,
-			UserSeeder::class,
-			KontakSeeder::class,
-			SosialSeeder::class,
-		]);
-	}
+  /**
+   * Run the database seeds.
+   *
+   * @return void
+   */
+  public function run()
+  {
+    $this->call([
+      CrewSeeder::class,
+      UserSeeder::class,
+      ContactSeeder::class,
+      SocialSeeder::class,
+    ]);
+  }
 }

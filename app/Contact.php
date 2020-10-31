@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class About extends Model
+class Contact extends Model
 {
   protected $fillable = [
     'id',
-    'name',
-    'address',
-    'history',
+    'nama',
+    'icon',
   ];
   protected $hidden = [
     'created_at',

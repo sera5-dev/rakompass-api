@@ -3,38 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Social;
+use App\Contact;
 
-class SocialController extends Controller
+class ContactController extends Controller
 {
   public function __construct()
   {
-    $obj = new Social();
+    $obj = new Contact();
     $this->attr = $obj->getFillable();
   }
 
   public function index()
   {
     try {
-      return $this->res('succeed', 'retrieve', 200, Social::all());
+      return $this->res('succeed', 'store', 200, Contact::all());
     } catch (\Exception $e) {
-      return $this->res('failed', 'retrieve', 403);
+      return $this->res('failed', 'store', 403);
     }
   }
 
   public function show($id)
   {
     try {
-      return $this->res('succeed', 'retrieve', 200, Social::findOrFail($id));
+      return $this->res('succeed', 'store', 200, Contact::findOrFail($id));
     } catch (\Exception $e) {
-      return $this->res('failed', 'retrieve', 403);
+      return $this->res('failed', 'store', 403);
     }
   }
 
   public function store(Request $request)
   {
     try {
-      $obj = new Social();
+      $obj = new Contact();
       $this->save($request, $obj, $this->attr);
       return $this->res('succeed', 'store', 200);
     } catch (\Exception $e) {
@@ -45,22 +45,22 @@ class SocialController extends Controller
   public function update(Request $request)
   {
     try {
-      $obj = Social::findOrFail($request->input('id'));
+      $obj = Contact::findOrFail($request->input('id'));
       $this->save($request, $obj, $this->attr);
-      return $this->res('succeed', 'update', 200);
+      return $this->res('succeed', 'store', 200);
     } catch (\Exception $e) {
-      return $this->res('failed', 'update', 403);
+      return $this->res('failed', 'store', 403);
     }
   }
 
   public function destroy(Request $request)
   {
     try {
-      $obj = Social::findOrFail($request->input('id'));
+      $obj = Contact::findOrFail($request->input('id'));
       $obj->delete();
-      return $this->res('succeed', 'delete', 200);
+      return $this->res('succeed', 'store', 200);
     } catch (\Exception $e) {
-      return $this->res('failed', 'delete', 403);
+      return $this->res('failed', 'store', 403);
     }
   }
 

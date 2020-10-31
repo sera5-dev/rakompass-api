@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAboutsTable extends Migration
+class CreateCrewSocialTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,12 +13,9 @@ class CreateAboutsTable extends Migration
    */
   public function up()
   {
-    Schema::create('abouts', function (Blueprint $table) {
-      $table->id();
-      $table->string('name');
-      $table->text('address')->nullable();
-      $table->longText('history')->nullable();
-      $table->timestamps();
+    Schema::create('crew_social', function (Blueprint $table) {
+      $table->foreignId('crew_id')->references('id')->on('crews')->onDelete('cascade');
+      $table->foreignId('contact_id')->references('id')->on('contacts')->onDelete('cascade');
     });
   }
 
@@ -29,6 +26,6 @@ class CreateAboutsTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('abouts');
+    Schema::dropIfExists('crew_social');
   }
 }

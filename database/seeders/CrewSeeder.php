@@ -7,15 +7,15 @@ use \App\Crew;
 
 class CrewSeeder extends Seeder
 {
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
-		$crew 						= new Crew();
-		$crew->nama 			= 'Rifqi';
-		$crew->save();
-	}
+  /**
+   * Run the database seeds.
+   *
+   * @return void
+   */
+  public function run()
+  {
+    $crew  = new Crew();
+    $crew->name = 'Rifqi';
+    $crew->save();
+  }
 }

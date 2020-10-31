@@ -7,97 +7,65 @@ use App\Crew;
 
 class CrewController extends Controller
 {
-	public function index()
-	{
-		try {
-			return response()->json([
-				'data' => Crew::all(),
-				'message' => 'data successfully retrieved'
-			], 200);
-		} catch (\Exception $e) {
-			return response()->json([
-				'message' => 'retrieve data failed'
-			], 500);
-		}
-	}
+  public function __construct()
+  {
+    $obj = new Crew();
+    $this->attr = $obj->getFillable();
+  }
 
-	public function show($id)
-	{
-		try {
-			return response()->json([
-				'data' => Crew::findOrFail($id),
-				'message' => 'data successfully retrieved'
-			], 200);
-		} catch (\Exception $e) {
-			return response()->json([
-				'message' => 'retrieve data failed'
-			], 500);
-		}
-	}
+  public function index()
+  {
+    try {
+      return $this->res('succeed', 'retrieve', 200, Crew::all());
+    } catch (\Exception $e) {
+      return $this->res('failed', 'retrieve', 403);
+    }
+  }
 
-	public function store(Request $request)
-	{
-		try {
-			$crew = new Crew();
+  public function show($id)
+  {
+    try {
+      return $this->res('succeed', 'retrieve', 200, Crew::findOrFail($id));
+    } catch (\Exception $e) {
+      return $this->res('failed', 'retrieve', 403);
+    }
+  }
 
-			$this->save($request, $crew);
+  public function store(Request $request)
+  {
+    try {
+      $obj = new Crew();
+      $this->save($request, $obj, $this->attr);
+      return $this->res('succeed', 'store', 200);
+    } catch (\Exception $e) {
+      return $this->res('failed', 'store', 403);
+    }
+  }
 
-			return response()->json([
-				'message' => 'data successfully stored'
-			], 201);
-		} catch (\Exception $e) {
-			return response()->json([
-				'message' => 'store data failed'
-			], 500);
-		}
-	}
+  public function update(Request $request)
+  {
+    try {
+      $obj = Crew::findOrFail($request->input('id'));
+      $this->save($request, $obj, $this->attr);
+      return $this->res('succeed', 'update', 200);
+    } catch (\Exception $e) {
+      return $this->res('failed', 'update', 403);
+    }
+  }
 
-	public function update(Request $request)
-	{
-		try {
-			$crew = Crew::findOrFail($request->input('id'));
+  public function destroy(Request $request)
+  {
+    try {
+      $obj = Crew::findOrFail($request->input('id'));
+      $obj->delete();
+      return $this->res('succeed', 'delete', 200);
+    } catch (\Exception $e) {
+      return $this->res('failed', 'delete', 403);
+    }
+  }
 
-			$this->save($request, $crew);
-
-			return response()->json([
-				'message' => 'data successfully updated'
-			], 200);
-		} catch (\Exception $e) {
-			return response()->json([
-				'message' => 'update data failed'
-			], 500);
-		}
-	}
-
-	public function destroy(Request $request)
-	{
-		try {
-			$crew = Crew::findOrFail($request->input('id'));
-
-			$crew->delete();
-
-			return response()->json([
-				'message' => 'data successfully deleted'
-			], 200);
-		} catch (\Exception $e) {
-			return response()->json([
-				'message' => 'delete data failed'
-			], 500);
-		}
-	}
-
-	public function input(Request $request)
-	{
-		return $request->filled('id') ? $this->update($request) : $this->store($request);
-	}
-
-	static function save($request, $crew)
-	{
-		$crew->nama 					= $request->input('nama');
-		$crew->alamat 				= $request->input('alamat');
-		$crew->tempat_lahir		= $request->input('tempat_lahir');
-		$crew->tanggal_lahir	= $request->input('alamat');
-
-		$crew->save();
-	}
+  public function input(Request $request)
+  {
+    return $request->filled('id') ? $this->update($request) : $this->store($request);
+  }
 }
