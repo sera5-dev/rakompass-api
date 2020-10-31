@@ -8,9 +8,9 @@ class Event extends Model
 {
   protected $fillable = [
     'id',
-    'nama',
-    'waktu',
-    'deskripsi',
+    'name',
+    'time',
+    'description',
   ];
   protected $hidden = [
     'created_at',

@@ -11,7 +11,7 @@ class Episode extends Model
     'jadwal_id',
     'link',
     'episode',
-    'tema',
+    'theme',
   ];
   protected $hidden = [
     'created_at',
