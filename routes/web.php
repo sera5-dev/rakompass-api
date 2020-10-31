@@ -20,8 +20,14 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'crews'], function ($router) {
   $router->get('/', 'CrewController@index');
   $router->get('/{id}', 'CrewController@show');
+  $router->get('/{id}/contacts', 'CrewController@contacts');
+  $router->get('/{id}/socials', 'CrewController@socials');
   $router->post('/', 'CrewController@input');
+  $router->post('/{id}/contacts', 'CrewController@storeContacts');
+  $router->post('/{id}/socials', 'CrewController@storeSocials');
   $router->delete('/', 'CrewController@destroy');
+  $router->delete('/{id}/contacts', 'CrewController@destroyContacts');
+  $router->delete('/{id}/socials', 'CrewController@destroySocials');
 });
 
 $router->group(['prefix' => 'users'], function ($router) {

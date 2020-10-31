@@ -13,6 +13,11 @@ class ProgramController extends Controller
     $this->attr = $obj->getFillable();
   }
 
+  public function input(Request $request)
+  {
+    return $request->filled('id') ? $this->update($request) : $this->store($request);
+  }
+
   public function index()
   {
     try {
@@ -31,38 +36,10 @@ class ProgramController extends Controller
     }
   }
 
-  public function jadwals($id)
-  {
-    try {
-      return $this->res('succeed', 'retrieve', Obj::findOrFail($id)->jadwals);
-    } catch (\Exception $e) {
-      return $this->res('failed', 'retrieve');
-    }
-  }
-
-  public function episodes($id)
-  {
-    try {
-      return $this->res('succeed', 'retrieve', Obj::findOrFail($id)->episodes);
-    } catch (\Exception $e) {
-      return $this->res('failed', 'retrieve');
-    }
-  }
-
   public function store(Request $request)
   {
     try {
       $this->save($request, new Obj, $this->attr);
-      return $this->res('succeed', 'store');
-    } catch (\Exception $e) {
-      return $this->res('failed', 'store');
-    }
-  }
-
-  public function storeCrew(Request $request, $id)
-  {
-    try {
-      Obj::findOrFail($id)->crews()->attach($request->input('crew'));
       return $this->res('succeed', 'store');
     } catch (\Exception $e) {
       return $this->res('failed', 'store');
@@ -89,18 +66,50 @@ class ProgramController extends Controller
     }
   }
 
+  public function jadwals($id)
+  {
+    try {
+      return $this->res('succeed', 'retrieve', Obj::findOrFail($id)->jadwals);
+    } catch (\Exception $e) {
+      return $this->res('failed', 'retrieve');
+    }
+  }
+
+  public function episodes($id)
+  {
+    try {
+      return $this->res('succeed', 'retrieve', Obj::findOrFail($id)->episodes);
+    } catch (\Exception $e) {
+      return $this->res('failed', 'retrieve');
+    }
+  }
+
+  public function crews($id)
+  {
+    try {
+      return $this->res('succeed', 'retrieve', Obj::findOrFail($id)->crews);
+    } catch (\Exception $e) {
+      return $this->res('failed', 'retrieve');
+    }
+  }
+
+  public function storeCrew(Request $request, $id)
+  {
+    try {
+      Obj::findOrFail($id)->crews()->attach($request->input('crew_id'));
+      return $this->res('succeed', 'store');
+    } catch (\Exception $e) {
+      return $this->res('failed', 'store');
+    }
+  }
+
   public function destroyCrew(Request $request, $id)
   {
     try {
-      Obj::findOrFail($id)->crews()->detach($request->input('crew'));
+      Obj::findOrFail($id)->crews()->detach($request->input('crew_id'));
       return $this->res('succeed', 'delete');
     } catch (\Exception $e) {
       return $this->res('failed', 'delete');
     }
-  }
-
-  public function input(Request $request)
-  {
-    return $request->filled('id') ? $this->update($request) : $this->store($request);
   }
 }

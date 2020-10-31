@@ -15,4 +15,9 @@ class Contact extends Model
     'created_at',
     'updated_at',
   ];
+
+  public function crews()
+  {
+    return $this->belongsToMany(Crews::class, 'crew_contact')->withPivot('value');
+  }
 }

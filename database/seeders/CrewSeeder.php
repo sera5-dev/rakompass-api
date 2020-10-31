@@ -14,7 +14,7 @@ class CrewSeeder extends Seeder
    */
   public function run()
   {
-    $crew  = new Crew();
+    $crew = new Crew();
     $crew->name = 'Rifqi';
     $crew->save();
   }

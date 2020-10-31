@@ -8,7 +8,7 @@ class Episode extends Model
 {
   protected $fillable = [
     'id',
-    'jadwal_id',
+    'schedule_id',
     'link',
     'episode',
     'theme',

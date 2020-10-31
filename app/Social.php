@@ -15,4 +15,9 @@ class Social extends Model
     'created_at',
     'updated_at',
   ];
+
+  public function crews()
+  {
+    return $this->belongsToMany(Crews::class, 'crew_social')->withPivot('username');
+  }
 }
