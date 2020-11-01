@@ -22,7 +22,7 @@ class CrewController extends Controller
   public function index()
   {
     try {
-      return $this->res('succeed', 'retrieve', Obj::all());
+      return $this->res('succeed', 'retrieve', Obj::allDetails());
     } catch (\Exception $e) {
       return $this->res('failed', 'retrieve');
     }
@@ -31,7 +31,7 @@ class CrewController extends Controller
   public function show($id)
   {
     try {
-      return $this->res('succeed', 'retrieve', Obj::findOrFail($id));
+      return $this->res('succeed', 'retrieve', Obj::showDetails($id));
     } catch (\Exception $e) {
       return $this->res('failed', 'retrieve');
     }
@@ -40,7 +40,10 @@ class CrewController extends Controller
   public function store(Request $request)
   {
     try {
-      $this->save($request, new Obj, $this->attr);
+      $obj = new Obj;
+      $this->save($request, $obj, $this->attr);
+      if ($request->hasFile('image'))
+        Obj::findOrFail($obj->id)->images()->attach($this->uploadImage($request, $obj));
       return $this->res('succeed', 'store');
     } catch (\Exception $e) {
       return $this->res('failed', 'store');
@@ -50,7 +53,10 @@ class CrewController extends Controller
   public function update(Request $request)
   {
     try {
-      $this->save($request, Obj::findOrFail($request->input('id')), $this->attr);
+      $obj = Obj::findOrFail($request->input('id'));
+      $this->save($request, $obj, $this->attr);
+      if ($request->hasFile('image'))
+        Obj::findOrFail($obj->id)->images()->attach($this->uploadImage($request, $obj));
       return $this->res('succeed', 'update');
     } catch (\Exception $e) {
       return $this->res('failed', 'update');
