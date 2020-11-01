@@ -19,6 +19,7 @@ class CreateEpisodesTable extends Migration
       $table->string('link');
       $table->integer('episode')->nullable();
       $table->string('theme')->nullable();
+      $table->string('date')->nullable();
       $table->timestamps();
     });
   }
