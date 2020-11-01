@@ -17,6 +17,7 @@ class CreatePartnersTable extends Migration
       $table->id();
       $table->string('name');
       $table->text('address');
+      $table->text('description');
       $table->timestamps();
     });
   }
