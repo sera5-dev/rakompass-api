@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Img;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
@@ -27,6 +31,25 @@ class Controller extends BaseController
       return response()->json([
         'message' => $status . ' to ' . $method . ' data',
       ], $code);
+    }
+  }
+
+  public function uploadImage($request, $obj)
+  {
+    if ($request->hasFile('image')) {
+
+      $folder = Str::lower(class_basename($obj));
+      $path = 'app/' . $folder . '/';
+
+      if (!file_exists(storage_path($path) . $obj->id))
+        File::makeDirectory(storage_path($path) . $obj->id);
+
+      $img = new Image();
+      $img->location = Str::random() . '.jpg';
+      Img::make($request->file('image'))->fit(300)->save(storage_path($path) . $obj->id . '/' . Str::random() . '.jpg');
+      $img->save();
+
+      return $img->id;
     }
   }
 }

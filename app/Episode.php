@@ -12,6 +12,7 @@ class Episode extends Model
     'link',
     'episode',
     'theme',
+    'date',
   ];
   protected $hidden = [
     'created_at',
