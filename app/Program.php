@@ -31,6 +31,11 @@ class Program extends Model
     return $this->hasManyThrough(Episode::class, Schedule::class);
   }
 
+  public function images()
+  {
+    return $this->belongstomany(Image::class, 'program_image');
+  }
+
   public static function allDetails()
   {
     $data = [];
@@ -38,14 +43,15 @@ class Program extends Model
     $program = Program::all();
 
     foreach ($program as $pk => $p) {
-      $schedule = Program::findOrFail($p->id)->schedules;
-      $episode = Program::findOrFail($p->id)->episodes;
-      $crew = Program::findOrFail($p->id)->crews;
-
       $data[$pk]['id'] = $p->id;
       $data[$pk]['name'] = $p->name;
       $data[$pk]['description'] = $p->description;
 
+      $image = Program::findOrFail($p->id)->images->first();
+      if ($image)
+        $data[$pk]['image'] = $image->location;
+
+      $schedule = Program::findOrFail($p->id)->schedules;
       foreach ($schedule as $jk => $j) {
         $data[$pk]['schedule'][$jk]['id'] = $j->id;
         $data[$pk]['schedule'][$jk]['program_id'] = $j->program_id;
@@ -54,6 +60,7 @@ class Program extends Model
         $data[$pk]['schedule'][$jk]['until'] = $j->until;
       }
 
+      $episode = Program::findOrFail($p->id)->episodes;
       foreach ($episode as $ek => $e) {
         $data[$pk]['episode'][$ek]['id'] = $e->id;
         $data[$pk]['episode'][$ek]['schedule_id'] = $e->schedule_id;
@@ -62,6 +69,7 @@ class Program extends Model
         $data[$pk]['episode'][$ek]['theme'] = $e->theme;
       }
 
+      $crew = Program::findOrFail($p->id)->crews;
       foreach ($crew as $ck => $c) {
         $data[$pk]['crew'][$ck]['id'] = $c->id;
         $data[$pk]['crew'][$ck]['name'] = $c->name;
