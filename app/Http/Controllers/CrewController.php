@@ -42,8 +42,6 @@ class CrewController extends Controller
     try {
       $obj = new Obj;
       $this->save($request, $obj, $this->attr);
-      if ($request->hasFile('image'))
-        Obj::findOrFail($obj->id)->images()->attach($this->uploadImage($request, $obj));
       return $this->res('succeed', 'store');
     } catch (\Exception $e) {
       return $this->res('failed', 'store');
@@ -55,8 +53,6 @@ class CrewController extends Controller
     try {
       $obj = Obj::findOrFail($request->input('id'));
       $this->save($request, $obj, $this->attr);
-      if ($request->hasFile('image'))
-        Obj::findOrFail($obj->id)->images()->attach($this->uploadImage($request, $obj));
       return $this->res('succeed', 'update');
     } catch (\Exception $e) {
       return $this->res('failed', 'update');

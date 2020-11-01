@@ -17,6 +17,25 @@ class Controller extends BaseController
         $obj->$d = $request->input($d);
     }
     $obj->save();
+
+    if ($request->hasFile('image')) {
+      $folder = Str::lower(class_basename($obj));
+      $path = 'app/' . $folder . '/';
+
+      if (!file_exists(storage_path($path)))
+        File::makeDirectory(storage_path($path));
+
+      if (!file_exists(storage_path($path) . $obj->id))
+        File::makeDirectory(storage_path($path) . $obj->id);
+
+      $img = new Image();
+      $filename = Str::random();
+      $img->location = $filename . '.jpg';
+      Img::make($request->file('image'))->fit(300)->save(storage_path($path) . $obj->id . '/' . $filename . '.jpg');
+      $img->save();
+
+      $obj::findOrFail($obj->id)->images()->sync($img->id);
+    }
   }
 
   public function res($status, $method, $data = '')
