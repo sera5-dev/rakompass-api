@@ -16,7 +16,7 @@ class EventController extends Controller
   public function index()
   {
     try {
-      return $this->res('succeed', 'retrieve', Obj::all());
+      return $this->res('succeed', 'retrieve', Obj::allDetails());
     } catch (\Exception $e) {
       return $this->res('failed', 'retrieve');
     }
@@ -25,7 +25,7 @@ class EventController extends Controller
   public function show($id)
   {
     try {
-      return $this->res('succeed', 'retrieve', Obj::findOrFail($id));
+      return $this->res('succeed', 'retrieve', Obj::showDetails($id));
     } catch (\Exception $e) {
       return $this->res('failed', 'retrieve');
     }
