@@ -10,6 +10,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+
   public static function save($request, $obj, $data)
   {
     foreach ($data as $d) {

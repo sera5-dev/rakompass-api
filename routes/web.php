@@ -84,6 +84,13 @@ $router->group(['prefix' => 'events'], function ($router) {
   $router->delete('/', 'EventController@destroy');
 });
 
+$router->group(['prefix' => 'partners'], function ($router) {
+  $router->get('/', 'PartnerController@index');
+  $router->get('/{id}', 'PartnerController@show');
+  $router->post('/', 'PartnerController@input');
+  $router->delete('/', 'PartnerController@destroy');
+});
+
 $router->group(['prefix' => 'abouts'], function ($router) {
   $router->get('/', 'AboutController@index');
   $router->get('/{id}', 'AboutController@show');

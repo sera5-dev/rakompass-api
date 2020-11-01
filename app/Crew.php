@@ -43,29 +43,29 @@ class Crew extends Model
     $data = [];
     $crew = Crew::all();
 
-    foreach ($crew as $ck => $crew) {
-      $data[$ck]['id'] = $crew->id;
-      $data[$ck]['name'] = $crew->name;
-      $data[$ck]['address'] = $crew->address;
-      $data[$ck]['birth_data'] = $crew->birth_date;
-      $data[$ck]['birth_place'] = $crew->birth_place;
+    foreach ($crew as $i => $crew) {
+      $data[$i]['id'] = $crew->id;
+      $data[$i]['name'] = $crew->name;
+      $data[$i]['address'] = $crew->address;
+      $data[$i]['birth_data'] = $crew->birth_date;
+      $data[$i]['birth_place'] = $crew->birth_place;
 
       $image = Crew::findOrFail($crew->id)->images->first();
       if ($image)
-        $data[$ck]['avatar'] = $image->location;
+        $data[$i]['avatar'] = $image->location;
 
       $social = Crew::findOrFail($crew->id)->socials;
       foreach ($social as $sk => $social) {
-        $data[$ck]['social'][$sk]['id'] = $social->id;
-        $data[$ck]['social'][$sk]['name'] = $social->name;
-        $data[$ck]['social'][$sk]['username'] = $social->pivot->username;
+        $data[$i]['social'][$sk]['id'] = $social->id;
+        $data[$i]['social'][$sk]['name'] = $social->name;
+        $data[$i]['social'][$sk]['username'] = $social->pivot->username;
       }
 
       $contact = Crew::findOrFail($crew->id)->contacts;
       foreach ($contact as $ct => $contact) {
-        $data[$ck]['contact'][$ct]['id'] = $contact->id;
-        $data[$ck]['contact'][$ct]['name'] = $contact->name;
-        $data[$ck]['contact'][$ct]['value'] = $contact->pivot->value;
+        $data[$i]['contact'][$ct]['id'] = $contact->id;
+        $data[$i]['contact'][$ct]['name'] = $contact->name;
+        $data[$i]['contact'][$ct]['value'] = $contact->pivot->value;
       }
     }
 
