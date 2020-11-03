@@ -9,6 +9,7 @@ class ProgramController extends Controller
 {
   public function __construct()
   {
+    $this->middleware('auth:api', ['except' => ['index', 'show', 'schedules', 'episodes']]);
     $obj = new Obj();
     $this->attr = $obj->getFillable();
   }
@@ -66,10 +67,10 @@ class ProgramController extends Controller
     }
   }
 
-  public function jadwals($id)
+  public function schedules($id)
   {
     try {
-      return $this->res('succeed', 'retrieve', Obj::findOrFail($id)->jadwals);
+      return $this->res('succeed', 'retrieve', Obj::findOrFail($id)->schedules);
     } catch (\Exception $e) {
       return $this->res('failed', 'retrieve');
     }

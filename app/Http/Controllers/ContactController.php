@@ -9,6 +9,7 @@ class ContactController extends Controller
 {
   public function __construct()
   {
+    $this->middleware('auth:api', ['except' => ['index', 'show']]);
     $obj = new Obj();
     $this->attr = $obj->getFillable();
   }

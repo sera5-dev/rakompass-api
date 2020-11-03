@@ -10,6 +10,7 @@ class CrewController extends Controller
 {
   public function __construct()
   {
+    $this->middleware('auth:api', ['except' => ['index', 'show', 'contacts', 'socials']]);
     $obj = new Obj();
     $this->attr = $obj->getFillable();
   }

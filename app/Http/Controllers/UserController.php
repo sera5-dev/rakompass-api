@@ -4,21 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use \App\User;
+use \App\User as Obj;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
   public function __construct()
   {
-    $obj = new User;
+    $this->middleware('auth:api');
+    $obj = new Obj;
     $this->attr = $obj->getFillable();
   }
 
   public function index()
   {
     try {
-      return $this->res('succeed', 'retrieve', User::all());
+      return $this->res('succeed', 'retrieve', Obj::all());
     } catch (\Exception $e) {
       return $this->res('failed', 'retrieve');
     }
@@ -27,7 +28,7 @@ class UserController extends Controller
   public function show($id)
   {
     try {
-      return $this->res('succeed', 'retrieve', User::findOrFail($id));
+      return $this->res('succeed', 'retrieve', Obj::findOrFail($id));
     } catch (\Exception $e) {
       return $this->res('failed', 'retrieve');
     }
@@ -36,7 +37,7 @@ class UserController extends Controller
   public function store(Request $request)
   {
     try {
-      $user = new User();
+      $user = new Obj();
       $this->userSave($request, $user);
       return $this->res('succeed', 'store');
     } catch (\Exception $e) {
@@ -46,19 +47,46 @@ class UserController extends Controller
 
   public function update(Request $request)
   {
+    if ($request->filled('password')) {
+      $this->validate($request, [
+        'username' => 'required|alpha_dash',
+        'password' => 'required|confirmed',
+        'password_current' => 'required',
+      ]);
+    } else {
+      $this->validate($request, [
+        'username' => 'required|alpha_dash',
+        'password_current' => 'required',
+      ]);
+    }
     try {
-      $user = User::findOrFail($request->input('id'));
-      $this->userSave($request, $user);
-      return $this->res('succeed', 'update');
+      $user = Obj::findOrFail($request->input('id'));
+
+      if (Hash::check($request->input('password_current'), $user->password)) {
+        $user->username = $request->input('username');
+        if ($request->filled('password')) {
+          $user->password = Hash::make($request->input('password'));
+        }
+        $user->save();
+        return response()->json([
+          'message' => 'succeed to update data',
+        ], 201);
+      } else {
+        return response()->json([
+          'message' => 'wrong current password',
+        ], 400);
+      }
     } catch (\Exception $e) {
-      return $this->res('failed', 'update');
+      return response()->json([
+        'message' => 'create users updated',
+      ], 400);
     }
   }
 
   public function destroy(Request $request)
   {
     try {
-      $user = User::findOrFail($request->input('id'));
+      $user = Obj::findOrFail($request->input('id'));
       $user->delete();
       return $this->res('succeed', 'delete');
     } catch (\Exception $e) {
