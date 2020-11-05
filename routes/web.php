@@ -37,7 +37,7 @@ $router->group(['prefix' => 'crews'], function ($router) {
 $router->group(['prefix' => 'users'], function ($router) {
   $router->get('/', 'UserController@index');
   $router->get('/{id}', 'UserController@show');
-  $router->post('/', 'UserController@input');
+  $router->post('/', 'UserController@update');
   $router->delete('/', 'UserController@destroy');
 });
 
