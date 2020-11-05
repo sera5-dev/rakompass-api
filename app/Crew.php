@@ -47,7 +47,7 @@ class Crew extends Model
       $data[$i]['id'] = $crew->id;
       $data[$i]['name'] = $crew->name;
       $data[$i]['address'] = $crew->address;
-      $data[$i]['birth_data'] = $crew->birth_date;
+      $data[$i]['birth_date'] = $crew->birth_date;
       $data[$i]['birth_place'] = $crew->birth_place;
 
       $image = Crew::findOrFail($crew->id)->images->first();
@@ -83,7 +83,7 @@ class Crew extends Model
     $data['id'] = $crew->id;
     $data['name'] = $crew->name;
     $data['address'] = $crew->address;
-    $data['birth_data'] = $crew->birth_date;
+    $data['birth_date'] = $crew->birth_date;
     $data['birth_place'] = $crew->birth_place;
     $data['avatar'] = $image->location;
 

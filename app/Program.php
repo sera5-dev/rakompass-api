@@ -111,6 +111,10 @@ class Program extends Model
       $data['crew'][$ck]['id'] = $c->id;
       $data['crew'][$ck]['name'] = $c->name;
     }
+
+    $image = Program::findOrFail($id)->images->first();
+    if ($image)
+      $data['image'] = $image->location;
     return $data;
   }
 }
