@@ -25,26 +25,6 @@ class UserController extends Controller
     }
   }
 
-  public function show($id)
-  {
-    try {
-      return $this->res('succeed', 'retrieve', Obj::findOrFail($id));
-    } catch (\Exception $e) {
-      return $this->res('failed', 'retrieve');
-    }
-  }
-
-  public function store(Request $request)
-  {
-    try {
-      $user = new Obj();
-      $this->userSave($request, $user);
-      return $this->res('succeed', 'store');
-    } catch (\Exception $e) {
-      return $this->res('failed', 'store');
-    }
-  }
-
   public function update(Request $request)
   {
     if ($request->filled('password')) {
@@ -97,16 +77,5 @@ class UserController extends Controller
   public function input(Request $request)
   {
     return $request->filled('id') ? $this->update($request) : $this->store($request);
-  }
-
-  function userSave($request, $user)
-  {
-    foreach ($this->attr as $d) {
-      if ($request->filled($d))
-        $d == 'password' ?
-          $user->$d = Hash::make($request->input($d)) :
-          $user->d = $request->input($d);
-    }
-    $user->save();
   }
 }

@@ -31,7 +31,7 @@ class Controller extends BaseController
 
       $img = new Image();
       $filename = Str::random();
-      $img->location = $filename . '.jpg';
+      $img->location = 'app/' . $folder . '/' . $obj->id . '/' . $filename . '.jpg';
       Img::make($request->file('image'))->fit(300)->save(storage_path($path) . $obj->id . '/' . $filename . '.jpg');
       $img->save();
 
