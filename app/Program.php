@@ -82,15 +82,13 @@ class Program extends Model
   {
     $data = [];
 
-    $program = Program::findOrFail($id);
-    $schedule = Program::findOrFail($id)->schedules;
-    $episode = Program::findOrFail($id)->episodes;
-    $crew = Program::findOrFail($id)->crews;
 
+    $program = Program::findOrFail($id);
     $data['id'] = $program->id;
     $data['name'] = $program->name;
     $data['description'] = $program->description;
 
+    $schedule = Program::findOrFail($id)->schedules;
     foreach ($schedule as $jk => $j) {
       $data['schedule'][$jk]['id'] = $j->id;
       $data['schedule'][$jk]['program_id'] = $j->program_id;
@@ -99,6 +97,7 @@ class Program extends Model
       $data['schedule'][$jk]['until'] = $j->until;
     }
 
+    $episode = Program::findOrFail($id)->episodes;
     foreach ($episode as $ek => $e) {
       $data['episode'][$ek]['id'] = $e->id;
       $data['episode'][$ek]['schedule_id'] = $e->schedule_id;
@@ -107,6 +106,7 @@ class Program extends Model
       $data['episode'][$ek]['theme'] = $e->theme;
     }
 
+    $crew = Program::findOrFail($id)->crews;
     foreach ($crew as $ck => $c) {
       $data['crew'][$ck]['id'] = $c->id;
       $data['crew'][$ck]['name'] = $c->name;

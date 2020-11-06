@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Crew;
 use App\Program as Obj;
 use Illuminate\Http\Request;
 
@@ -89,6 +90,17 @@ class ProgramController extends Controller
   {
     try {
       return $this->res('succeed', 'retrieve', Obj::findOrFail($id)->crews);
+    } catch (\Exception $e) {
+      return $this->res('failed', 'retrieve');
+    }
+  }
+
+  public function crewsOption($id)
+  {
+    try {
+      $data = Obj::findOrFail($id)->crews->pluck('id')->toArray();
+      $crews = Crew::all()->except($data);
+      return $this->res('succeed', 'retrieve', $crews);
     } catch (\Exception $e) {
       return $this->res('failed', 'retrieve');
     }
