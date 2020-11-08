@@ -47,6 +47,7 @@ $router->group(['prefix' => 'programs'], function ($router) {
   $router->get('/{id}/schedules', 'ProgramController@schedules');
   $router->get('/{id}/episodes', 'ProgramController@episodes');
   $router->get('/{id}/crews', 'ProgramController@crews');
+  $router->get('/{id}/crews/unselected', 'ProgramController@crewsOption');
   $router->post('/', 'ProgramController@input');
   $router->post('/{id}/crews', 'ProgramController@storeCrew');
   $router->delete('/', 'ProgramController@destroy');
