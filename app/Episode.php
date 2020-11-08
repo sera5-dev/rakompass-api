@@ -22,4 +22,8 @@ class Episode extends Model
   {
     return $this->belongsTo(Schedule::class);
   }
+  public function programs()
+  {
+    return $this->belongsTo(Program::class);
+  }
 }

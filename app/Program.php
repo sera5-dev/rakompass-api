@@ -56,8 +56,8 @@ class Program extends Model
         $data[$pk]['schedule'][$jk]['id'] = $j->id;
         $data[$pk]['schedule'][$jk]['program_id'] = $j->program_id;
         $data[$pk]['schedule'][$jk]['day'] = $j->day;
-        $data[$pk]['schedule'][$jk]['from'] = $j->from;
-        $data[$pk]['schedule'][$jk]['until'] = $j->until;
+        $data[$pk]['schedule'][$jk]['start'] = $j->start;
+        $data[$pk]['schedule'][$jk]['end'] = $j->end;
       }
 
       $episode = Program::findOrFail($p->id)->episodes;
@@ -66,6 +66,7 @@ class Program extends Model
         $data[$pk]['episode'][$ek]['schedule_id'] = $e->schedule_id;
         $data[$pk]['episode'][$ek]['link'] = $e->link;
         $data[$pk]['episode'][$ek]['episode'] = $e->episode;
+        $data[$pk]['episode'][$ek]['date'] = $e->date;
         $data[$pk]['episode'][$ek]['theme'] = $e->theme;
       }
 
@@ -93,8 +94,8 @@ class Program extends Model
       $data['schedule'][$jk]['id'] = $j->id;
       $data['schedule'][$jk]['program_id'] = $j->program_id;
       $data['schedule'][$jk]['day'] = $j->day;
-      $data['schedule'][$jk]['from'] = $j->from;
-      $data['schedule'][$jk]['until'] = $j->until;
+      $data['schedule'][$jk]['start'] = $j->start;
+      $data['schedule'][$jk]['end'] = $j->end;
     }
 
     $episode = Program::findOrFail($id)->episodes;
@@ -103,6 +104,7 @@ class Program extends Model
       $data['episode'][$ek]['schedule_id'] = $e->schedule_id;
       $data['episode'][$ek]['link'] = $e->link;
       $data['episode'][$ek]['episode'] = $e->episode;
+      $data['episode'][$ek]['date'] = $e->date;
       $data['episode'][$ek]['theme'] = $e->theme;
     }
 
