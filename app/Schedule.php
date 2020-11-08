@@ -10,8 +10,8 @@ class Schedule extends Model
     'id',
     'program_id',
     'day',
-    'from',
-    'until',
+    'start',
+    'end',
   ];
   protected $hidden = [
     'created_at',

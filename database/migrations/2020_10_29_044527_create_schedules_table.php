@@ -17,8 +17,8 @@ class CreateSchedulesTable extends Migration
       $table->id();
       $table->foreignId('program_id')->references('id')->on('programs');
       $table->integer('day');
-      $table->time('from')->nullable();
-      $table->time('until')->nullable();
+      $table->time('start')->nullable();
+      $table->time('end')->nullable();
       $table->timestamps();
     });
   }
