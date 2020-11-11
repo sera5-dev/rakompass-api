@@ -76,28 +76,30 @@ class Crew extends Model
   {
     $data = [];
     $crew = Crew::findOrFail($id);
-    $image = Crew::findOrFail($id)->images->first();
-    $contact = Crew::findOrFail($id)->contacts;
-    $social = Crew::findOrFail($id)->socials;
 
     $data['id'] = $crew->id;
     $data['name'] = $crew->name;
     $data['address'] = $crew->address;
     $data['birth_date'] = $crew->birth_date;
     $data['birth_place'] = $crew->birth_place;
-    $data['avatar'] = $image->location;
 
+    $social = Crew::findOrFail($id)->socials;
     foreach ($social as $sk => $social) {
       $data['social'][$sk]['id'] = $social->id;
       $data['social'][$sk]['name'] = $social->name;
       $data['social'][$sk]['username'] = $social->pivot->username;
     }
 
+    $contact = Crew::findOrFail($id)->contacts;
     foreach ($contact as $ct => $contact) {
       $data['contact'][$ct]['id'] = $contact->id;
       $data['contact'][$ct]['name'] = $contact->name;
       $data['contact'][$ct]['value'] = $contact->pivot->value;
     }
+
+    $image = Crew::findOrFail($crew->id)->images->first();
+    if ($image)
+      $data['avatar'] = $image->location;
 
     return $data;
   }
