@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Social;
+use App\Social as Obj;
 
 class SocialSeeder extends Seeder
 {
@@ -14,19 +14,16 @@ class SocialSeeder extends Seeder
    */
   public function run()
   {
-    $data = [
-      'whatsapp',
-      'facebook',
-      'instragram',
-      'youtube',
-      'twitter',
-      'telegram',
+    $datas = [
+      ['name' => 'whatsapp'],
+      ['name' => 'facebook'],
+      ['name' => 'instragram'],
+      ['name' => 'youtube'],
+      ['name' => 'twitter'],
+      ['name' => 'telegram'],
     ];
 
-    foreach ($data as $d) {
-      $social = new Social;
-      $social->name = $d;
-      $social->save();
-    }
+    foreach ($datas as $data)
+      Obj::create($data);
   }
 }

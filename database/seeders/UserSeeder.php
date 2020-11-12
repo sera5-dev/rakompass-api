@@ -3,21 +3,30 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use \App\User;
 use Illuminate\Support\Facades\Hash;
+use \App\User as Obj;
 
 class UserSeeder extends Seeder
 {
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
-		$user = new User;
-		$user->username = 'admin';
-		$user->password = Hash::make('admin');
-		$user->save();
-	}
+  /**
+   * Run the database seeds.
+   *
+   * @return void
+   */
+  public function run()
+  {
+    $datas = [
+      [
+        'username' => 'admin',
+        'password' => Hash::make('admin'),
+      ],
+      [
+        'username' => 'rifqisambas',
+        'password' => Hash::make('admin'),
+      ],
+    ];
+
+    foreach ($datas as $data)
+      Obj::create($data);
+  }
 }

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Contact;
+use App\Contact as Obj;
 
 class ContactSeeder extends Seeder
 {
@@ -14,17 +14,14 @@ class ContactSeeder extends Seeder
    */
   public function run()
   {
-    $data = [
-      'ponsel',
-      'telepon',
-      'email',
-      'fax',
+    $datas = [
+      ['name' => 'ponsel'],
+      ['name' => 'telepon'],
+      ['name' => 'email'],
+      ['name' => 'fax'],
     ];
 
-    foreach ($data as $d) {
-      $kontak = new Contact;
-      $kontak->name = $d;
-      $kontak->save();
-    }
+    foreach ($datas as $data)
+      Obj::create($data);
   }
 }

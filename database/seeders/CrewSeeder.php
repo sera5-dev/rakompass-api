@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use \App\Crew;
+use \App\Crew as Obj;
 
 class CrewSeeder extends Seeder
 {
@@ -14,8 +14,31 @@ class CrewSeeder extends Seeder
    */
   public function run()
   {
-    $crew = new Crew();
-    $crew->name = 'Rifqi';
-    $crew->save();
+    $datas = [
+      ['name' => 'Sukma',],
+      ['name' => 'Irsan',],
+      ['name' => 'Santi',],
+      ['name' => 'Fikri',],
+      ['name' => 'Pak Yoyon',],
+      ['name' => 'Dede',],
+      ['name' => 'Widi',],
+      ['name' => 'Jefri',],
+      ['name' => 'Yudi',],
+      ['name' => 'Gugun',],
+      ['name' => 'Om Tema',],
+      ['name' => 'Om Tema',],
+      ['name' => 'Kang Ayi',],
+      ['name' => 'Pak Agung',],
+      ['name' => 'Mas Dimas',],
+      ['name' => 'Mang Jey',],
+      ['name' => 'Bah Opic',],
+      ['name' => 'Ardian',],
+      ['name' => 'Lufie',],
+      ['name' => 'Shofyani',],
+      ['name' => 'Ade Sawit',]
+    ];
+
+    foreach ($datas as $data)
+      Obj::create($data);
   }
 }
